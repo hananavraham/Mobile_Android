@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalculatorActivity" />
-        <activity android:name=".BirthdayListActivity"></activity>
+        <activity android:name=".BirthdayListActivity" />
+        <activity android:name=".AddBirthday"/>
     </application>
 
 </manifest>

@@ -11,11 +11,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BirthdayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     FloatingActionButton button;
     Context context;
-    String []items;
-    public BirthdayAdapter(Context context,String[] items){
+    List<Birthday> items;
+
+    public BirthdayAdapter(Context context,List<Birthday> items){
         this.context = context;
         this.items = items;
     }
@@ -23,26 +27,29 @@ public class BirthdayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View row = inflater.inflate(R.layout.birthday_item, parent,false);
-        BirthdayAdapter.Item item = new BirthdayAdapter.Item(row);
+        View row = inflater.inflate(R.layout.birthday_item, parent, false);
+        Item item = new Item(row);
         return item;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
-        ((BirthdayAdapter.Item)holder).textView.setText(items[position]);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        ((Item)holder).first_name.setText(items.get(position).getFirst_Name() +
+        " " + items.get(position).getLast_Name() + "     - " + items.get(position).getDate());
+//        ((Item)holder).last_name.setText(items.get(position).getLast_Name());
+//        ((Item)holder).date.setText(items.get(position).getDate());
     }
 
     @Override
     public int getItemCount() {
-        return items.length;
+        return items.size();
     }
 
     public class Item extends RecyclerView.ViewHolder{
-        TextView textView;
+        public TextView first_name;
         public Item(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.item);
+            first_name = itemView.findViewById(R.id.first_name);
         }
     }
 }
