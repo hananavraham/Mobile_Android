@@ -34,10 +34,9 @@ public class BirthdayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        ((Item)holder).first_name.setText(items.get(position).getFirst_Name() +
-        " " + items.get(position).getLast_Name() + "     - " + items.get(position).getDate());
-//        ((Item)holder).last_name.setText(items.get(position).getLast_Name());
-//        ((Item)holder).date.setText(items.get(position).getDate());
+        ((Item)holder).name.setText(items.get(position).getFirst_Name()
+                + " " +(items.get(position).getLast_Name()));
+        ((Item)holder).date.setText(items.get(position).getDate());
     }
 
     @Override
@@ -46,10 +45,12 @@ public class BirthdayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class Item extends RecyclerView.ViewHolder{
-        public TextView first_name;
+        public TextView name;
+        public TextView date;
         public Item(View itemView) {
             super(itemView);
-            first_name = itemView.findViewById(R.id.first_name);
+            name = itemView.findViewById(R.id.first_name);
+            date = itemView.findViewById(R.id.birthdate);
         }
     }
 }

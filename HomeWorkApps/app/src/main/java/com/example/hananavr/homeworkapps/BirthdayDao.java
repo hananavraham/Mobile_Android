@@ -1,6 +1,7 @@
 package com.example.hananavr.homeworkapps;
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
@@ -13,4 +14,7 @@ public interface BirthdayDao {
 
     @Insert
     public void insertItem(Birthday birthday);
+
+    @Delete
+    public void removeItem(Birthday birthday);
 }
