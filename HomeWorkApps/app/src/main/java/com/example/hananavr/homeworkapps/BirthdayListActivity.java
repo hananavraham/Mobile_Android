@@ -32,6 +32,7 @@ public class BirthdayListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_birthday_list);
         items = new ArrayList<>();
 
+
         // creating database instnace
         DataBase db = Room.databaseBuilder(getApplicationContext(), DataBase.class,"room")
                 .allowMainThreadQueries()
@@ -68,7 +69,9 @@ public class BirthdayListActivity extends AppCompatActivity {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                return convertedDate1.compareTo(convertedDate2);
+                if (convertedDate1.after(convertedDate2))
+                    return -1;
+                else return 1;
             }
         });
         return items;
