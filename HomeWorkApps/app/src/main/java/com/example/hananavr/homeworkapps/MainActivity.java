@@ -13,7 +13,7 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    String []items = {"Homework1 - Calculator", "Homework2 - Birthday List"};
+    String []items = {"Homework1 - Calculator", "Homework2 - Birthday List", "Homework3 - Bounding Balls"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

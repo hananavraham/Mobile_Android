@@ -47,6 +47,11 @@ public class Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         Intent Birthdayintent = new Intent(context,BirthdayListActivity.class);
                         context.startActivity(Birthdayintent);
                         break;
+
+                    case 2:
+                        Intent BoundingBalls = new Intent(context,bounding_ball.class);
+                        context.startActivity(BoundingBalls);
+                        break;
                 }
             }
         });

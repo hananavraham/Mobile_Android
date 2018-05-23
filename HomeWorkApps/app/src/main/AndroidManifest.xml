@@ -21,7 +21,11 @@
         </activity>
         <activity android:name=".CalculatorActivity" />
         <activity android:name=".BirthdayListActivity" />
-        <activity android:name=".AddBirthday"/>
+        <activity android:name=".AddBirthday" />
+        <activity
+            android:name=".bounding_ball"
+            android:label="@string/title_activity_bounding_ball"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
