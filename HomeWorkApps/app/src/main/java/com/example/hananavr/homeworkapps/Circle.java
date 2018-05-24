@@ -7,15 +7,13 @@ import android.graphics.RectF;
 import java.util.Random;
 
 public class Circle {
-    private int leftTopX;
-    private int leftTopY;
+    private float leftTopX;
+    private float leftTopY;
     private int radius;
     private Paint paint;
     private RectF bounds;
     private int speedX;
     private int speedY;
-    private int maxX;
-    private int maxY;
 
     public Circle(int color) {
         this.paint = new Paint();
@@ -23,7 +21,7 @@ public class Circle {
         bounds = new RectF();
     }
 
-    public void setCOORD(int x, int y, int radius){
+    public void setCOORD(float x, float y, int radius){
         this.leftTopX = x;
         this.leftTopY = y;
         this.radius = radius;
@@ -35,32 +33,50 @@ public class Circle {
         this.speedY = spdY;
     }
 
-    public void setMax(int x, int y){
-        this.maxX = x;
-        this.maxY = y;
-    }
     public void draw(Canvas canvas){
         canvas.drawOval(bounds,paint);
-        update();
+        update(canvas);
     }
 
-    private void update() {
+    private void update(Canvas canvas) {
 
-        if (leftTopX + 2 * radius > maxX){
-            speedX = speedX * -1;
-        }
-        else if (leftTopX < 0) {
-            speedX = speedX * -1;
+        /** check screen borders.... ****/
+        if(leftTopX >= canvas.getWidth() - 100){
+            speedX = -5;
         }
 
-        if (leftTopY + 2 * radius > maxY){
-            speedY = speedY * -1;
+        if(leftTopX <= 0) {
+            speedX = 5;
         }
-        else if (leftTopY < 0){
-            speedY = speedY * -1;
+
+        if(leftTopY >= canvas.getHeight()- 100){
+            speedY = -5;
         }
-        leftTopX = leftTopX + speedX;
-        leftTopY = leftTopX + speedY;
+
+        if(leftTopY <= 0) {
+            speedY = 5;
+        }
+
+        /*******************************************/
+
+
+        /** check if ball is in rectangle borders...   **/
+        if((leftTopX >= 345 && leftTopX <= 905) && ((leftTopY >= 500 &&  leftTopY<=1000)))
+        {
+            speedX *= -1;
+        }
+
+        if((leftTopX >= 350 && leftTopX <= 900) && ((leftTopY >= 495 && leftTopY <=1005)))
+        {
+
+            speedY *= -1;
+        }
+        /*************************************************/
+
+        /************************************************/
+
+        leftTopX += speedX;
+        leftTopY += speedY;
 
         bounds.set(leftTopX , leftTopY , leftTopX + 2 * radius , leftTopY + 2 * radius);
     }

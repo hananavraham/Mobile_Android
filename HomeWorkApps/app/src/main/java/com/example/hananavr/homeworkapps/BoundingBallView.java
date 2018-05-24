@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,17 +27,24 @@ public class BoundingBallView extends View {
     private static int SQUARE_SIZE = 100;
     ArrayList<Circle> ballList = new ArrayList<Circle>();
 
+//    @Override
+////    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+////        super.onSizeChanged(w, h, oldw, oldh);
+////        maxX = w;
+////        maxY = h;
+////
+////        Iterator it = ballList.iterator();
+////        while(it.hasNext()){
+////            Circle ball = (Circle) it.next();
+////            ball.setMax(maxX, maxY);
+////        }
+////    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         maxX = w;
         maxY = h;
-
-        Iterator it = ballList.iterator();
-        while(it.hasNext()){
-            Circle ball = (Circle) it.next();
-            ball.setMax(maxX, maxY);
-        }
     }
 
     public BoundingBallView(Context context) {
@@ -47,13 +55,15 @@ public class BoundingBallView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        /** create the rectangle **/
         rectangle = new Rect();
-
         rectPaint = new Paint();
         rectPaint.setColor(Color.GREEN);
         rectPaint.setStyle(Paint.Style.FILL);
 
-        canvas.drawRect(250,650,canvas.getWidth() /2,canvas.getHeight() / 2,rectPaint);
+        canvas.drawRect(450,600,900,1000,rectPaint);
+
+        /***************************/
 
 
         Iterator it = ballList.iterator();
@@ -61,25 +71,32 @@ public class BoundingBallView extends View {
             Circle ball = (Circle) it.next();
             ball.draw(canvas);
         }
-
         invalidate();
     }
 
     public boolean onTouchEvent (MotionEvent event){
         int eventAction = event.getAction();
         if (eventAction == MotionEvent.ACTION_DOWN){
-            if (ballList.size() == 10)
+            if (ballList.size() == 10) {
+                ballList.remove(1);
+                ballList.remove(3);
+                return true;
+            }
+
+
+            /** checking if we click inside the rectangle  **/
+            if((event.getX() >= 350 && event.getX() <= 1000) && (event.getY() >= 500 && event.getY() <= 1100))
                 return true;
 
             Random random = new Random();
             int color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256));
             ball = new Circle(color);
 
-            ball.setCOORD(0 ,0, 45);
+            /** creating the ball in touch position.. **/
+            ball.setCOORD(event.getX() ,event.getY(), 45);
 
-            ball.setSpeed(random.nextInt(50 - 5) + 5, random.nextInt(50 - 10) +10);
+            ball.setSpeed(5,8);
             ballList.add(ball);
-            onSizeChanged(maxX, maxY , oldX, oldY);
 
             return true;
         }
